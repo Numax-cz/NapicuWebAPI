@@ -18,7 +18,6 @@ public class NapicuPopJonanekController {
 
     @PostMapping("/popjonanek")
     public Response setGetCounter(@RequestBody NapicuPopJonanekModel data){
-
         return new Response(true,  popJonanekService.updateAndGetCounter(data.counter));
     }
 
