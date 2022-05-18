@@ -24,15 +24,12 @@ public class NapicuPopJonanekController {
     @Autowired
     private NapicuPopJonanekService popJonanekService;
 
-
-    private final Bucket bucket;
+    @Autowired
+    private RateLimit rateLimit;
 
 
     public NapicuPopJonanekController(){
-        Bandwidth limit = Bandwidth.classic(2, Refill.greedy(20, Duration.ofMinutes(1)));
-        this.bucket = Bucket4j.builder()
-                .addLimit(limit)
-                .build();
+
     }
 
     @PostMapping("/popjonanek")
@@ -42,11 +39,9 @@ public class NapicuPopJonanekController {
 
     @GetMapping("/test")
     public ResponseEntity<String> get(){
-        if(bucket.tryConsume(1)){
+        if(rateLimit.getServiceBucket().tryConsume(1)){
             return new ResponseEntity<String>("Goot", HttpStatus.OK);
         }
         return new ResponseEntity<String>("Not goot", HttpStatus.OK);
     }
-
-
 }

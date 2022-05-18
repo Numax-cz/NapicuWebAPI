@@ -16,12 +16,18 @@ import java.util.Set;
 @Service
 public class RateLimit {
 
+    private final Bucket bucket;
 
-
-    public Bucket getServiceBucket(){
-
-        return  Bucket.builder().addLimit(Bandwidth.classic(5, Refill.intervally(2, Duration.ofMinutes(1)))).build();
+    RateLimit(){
+        Bandwidth limit = Bandwidth.classic(40, Refill.greedy(1, Duration.ofMinutes(1)));
+        this.bucket = Bucket4j.builder()
+                .addLimit(limit)
+                .build();
     }
 
+
+    public Bucket getServiceBucket() {
+        return this.bucket;
+    }
 
 }

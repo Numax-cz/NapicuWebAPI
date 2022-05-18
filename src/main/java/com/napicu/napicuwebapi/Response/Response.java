@@ -1,6 +1,6 @@
 package com.napicu.napicuwebapi.Response;
 
-public class Response {
+public class Response{
     public boolean success;
     public Object data;
 
