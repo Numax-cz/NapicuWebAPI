@@ -1,7 +1,11 @@
-FROM openjdk:8-jdk-alpine
+FROM maven:3.6.3-openjdk-15
 
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=*.jar
 
-COPY ${JAR_FILE} app.jar
+COPY ${JAR_FILE} /app/app.jar
 
-ENTRYPOINT ["java","-jar","/app.jar --server.port=80"]
+RUN cd /app
+
+WORKDIR /app
+
+CMD java -jar ./app.jar --server.port=80
