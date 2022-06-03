@@ -15,7 +15,6 @@ import java.util.Set;
 
 @Service
 public class RateLimit {
-
     private final Bucket bucket;
 
     RateLimit(){
@@ -25,9 +24,7 @@ public class RateLimit {
                 .build();
     }
 
-
     public Bucket getServiceBucket() {
         return this.bucket;
     }
-
 }

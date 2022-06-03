@@ -13,7 +13,15 @@ import java.util.Collections;
 public class NapicuWebApiApplication {
 
     public static void main(String[] args) {
+
+//        Dotenv dotenv = null;
+//        dotenv = Dotenv.configure().load();
+//
+//        if(dotenv == null){
+//            System.out.println("Není");
+//        }
         SpringApplication.run(NapicuWebApiApplication.class, args);
+
     }
 
     @Bean
@@ -27,6 +35,4 @@ public class NapicuWebApiApplication {
             }
         };
     }
-
-
 }
