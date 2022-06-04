@@ -51,7 +51,7 @@ api:
 ## Spuštění aplikace na požadovaném portu 
 - Aplikace se defaultně spouští na portu 8080
 - Pro spuštění aplikace na požadovaném portu použijte
-1. Pomocí configuračního souboru
+1. Pomocí yml configuračního souboru
     ```yml
     server:
       port: 7070
