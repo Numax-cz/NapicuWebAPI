@@ -1,0 +1,1 @@
+.\mvnw spring-boot:run -f pom.xml --spring.profiles.active=dev
