@@ -8,26 +8,31 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RateLimit {
 
+    @Value("${api.limits}")
+    private String limits;
     private final Bucket bucket;
+    private final String defaultRateLimits = "40";
+
 
     RateLimit(){
-        Bandwidth limit = Bandwidth.classic(40, Refill.greedy(1, Duration.ofMinutes(1)));
+
+        if(Objects.equals(this.limits, null)){
+            this.limits = defaultRateLimits;
+            new NapicuPrint().printInfo("Limits are not set, the limits have been set at " + defaultRateLimits);
+        }
+
+        Bandwidth limit = Bandwidth.classic(Integer.parseInt(this.limits), Refill.greedy(1, Duration.ofMinutes(1)));
         this.bucket = Bucket4j.builder()
                 .addLimit(limit)
                 .build();
     }
 
-
     public Bucket getServiceBucket() {
         return this.bucket;
     }
-
 }

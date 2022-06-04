@@ -1,26 +1,19 @@
 package com.napicu.napicuwebapi.NapicuIP;
-
 import com.napicu.napicuwebapi.Response.Response;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.napicu.napicuwebapi.service.NapicuPrint;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-
-import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
-import java.net.URLConnection;
 
 @Service
 public class NapicuIPService {
-
-
     HttpServletRequest request;
 
     NapicuIPService(HttpServletRequest request){
         this.request = request;
     }
-
 
     public String getIp(){
         String remoteAddr = "";
@@ -33,16 +26,16 @@ public class NapicuIPService {
         return remoteAddr;
     }
 
-
-    public String getIpInfo(){
-        final String uri = "http://ip-api.com/json/" + getIp() + "?fields=country,city,org,query";
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(uri, String.class);
+    public Response getIpInfo(){
+        try{
+            final String url = "http://ip-api.com/json/" + this.getIp() + "?fields=country,city,org,query";
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<NapicuIPResponseModel> responseEntity = restTemplate.getForEntity(url, NapicuIPResponseModel.class);
+            NapicuIPResponseModel data = responseEntity.getBody();
+            return  new Response(HttpStatus.OK.value(), data);
+        }catch (Exception error){
+            new NapicuPrint().printError("NapicuIPService", error.toString());
+            return  new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
+        }
     }
-
-
-
-
-
-
 }

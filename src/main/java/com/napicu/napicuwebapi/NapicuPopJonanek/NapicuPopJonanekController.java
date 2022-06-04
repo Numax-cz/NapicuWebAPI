@@ -1,23 +1,9 @@
 package com.napicu.napicuwebapi.NapicuPopJonanek;
-
-import com.napicu.napicuwebapi.Database.NapicuPopJonanekDatabase;
 import com.napicu.napicuwebapi.Response.Response;
 import com.napicu.napicuwebapi.service.RateLimit;
-import io.github.bucket4j.Bandwidth;
-import io.github.bucket4j.Bucket;
-import io.github.bucket4j.Bucket4j;
-import io.github.bucket4j.Refill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.time.Duration;
-
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class NapicuPopJonanekController {
@@ -34,14 +20,9 @@ public class NapicuPopJonanekController {
 
     @PostMapping("/popjonanek")
     public Response setGetCounter(@RequestBody NapicuPopJonanekModel data){
-        return new Response(true,  popJonanekService.updateAndGetCounter(data.counter));
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> get(){
         if(rateLimit.getServiceBucket().tryConsume(1)){
-            return new ResponseEntity<String>("Goot", HttpStatus.OK);
+            return popJonanekService.updateAndGetCounter(data.counter);
         }
-        return new ResponseEntity<String>("Not goot", HttpStatus.OK);
+        return new Response(HttpStatus.TOO_MANY_REQUESTS.value(), null);
     }
 }
