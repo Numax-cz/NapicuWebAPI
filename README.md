@@ -1,18 +1,19 @@
 # NapicuWebAPI - Preview
 
 ## Instalace
-
-1. ### Naklonování repozitáře
    ```sh
    git clone https://github.com/Numax-cz/NapicuWebAPI.git
    ``` 
 
+---
+
 ## Nastavení configu
+
 Nastavte soubor pro development <br />
 `src/main/resources/application-dev.yml` <br/>
 
-   Nastavte soubor pro development <br />
-  `src/main/resources/application-dev.yml` <br/>
+Nastavte soubor pro development <br />
+`src/main/resources/application-dev.yml` <br/>
 
 - Pro změnu profilů použijte tento příkaz
     ```sh
@@ -22,15 +23,13 @@ Nastavte soubor pro development <br />
     ```sh
      java -jar ./app.jar --spring.profiles.active=NAZEV-PROFILU
     ```
-- Pro spuštění aplikace na požadovaném portu použijte
-    ```sh
-     java -jar ./app.jar --server.port=7070
-    ```
-- Ve výchozím nastavení se aplikace spustí na portu 8080
-
-
-
-
+## Nastavení request limitů
+- Ve výchozím nastavení je povoleno 40 requestů za minutu na 1 IP adresu pro všechny API
+```yml
+api:
+  limits: 40
+```
+---
 
 ## Buildnutí aplikace
 1. ### Nastavení javy
@@ -46,12 +45,18 @@ Nastavte soubor pro development <br />
 ./Build.cmd
 ```
 
+---
 
 ## Spuštění aplikace pro development
 ```shell
 ./RunDev.cmd
 ```
-- Aplikace se defaultně spustí na portu 8080
+## Spuštění aplikace na požadovaném portu 
+```sh
+java -jar ./app.jar --server.port=7070
+```
+- Aplikace se defaultně spouští na portu 8080
+- Pro spuštění aplikace na požadovaném portu použijte
 
 ## Spuštění aplikace pro produkci - Docker
 ```shell
