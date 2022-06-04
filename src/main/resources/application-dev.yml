@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/test
+    username: root
+    password:
+
+server:
+  port: 8080
+
+
+
+api:
+  limits: 40
+  keys:
+    open-weather:

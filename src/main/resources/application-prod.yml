@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST}/${DB_TABLE}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+api:
+  limits: ${API_LIMITS}
+  keys:
+    open-weather: ${API_OPEN_WEATHER_KEY}
