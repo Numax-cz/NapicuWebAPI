@@ -6,4 +6,4 @@ RUN cd /app
 
 WORKDIR /app
 
-CMD java -jar ./app.jar --server.port=80 --spring.profiles.active=prod
+CMD java -jar ./app.jar --server.port=6969 --spring.profiles.active=dev
