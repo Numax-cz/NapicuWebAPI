@@ -1,4 +1,4 @@
-# NapicuWebAPI 
+# NapicuWebAPI - Preview
 
 ## Instalace
 
@@ -47,7 +47,7 @@ Nastavte soubor pro development <br />
 ```
 
 
-## Spuštění aplikace development
+## Spuštění aplikace pro development
 ```shell
 ./RunDev.cmd
 ```
