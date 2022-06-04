@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.Objects;
 
 @Service
 public class RateLimit {
@@ -19,9 +19,9 @@ public class RateLimit {
     private final String defaultRateLimits = "40";
 
 
-    RateLimit(){
+    RateLimit() {
 
-        if(Objects.equals(this.limits, null)){
+        if (Objects.equals(this.limits, null)) {
             this.limits = defaultRateLimits;
             new NapicuPrint().printInfo("Limits are not set, the limits have been set at " + defaultRateLimits);
         }

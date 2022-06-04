@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class NapicuPocasiService  {
+public class NapicuPocasiService {
 
-    public Response getOpenWeatherData(String api_key, String country)  {
+    public Response getOpenWeatherData(String api_key, String country) {
         NapicuPocasiResponseModel data = new NapicuPocasiResponseModel();
         try {
             final String url = "http://api.openweathermap.org/data/2.5/weather?q=" + country + "&units=metric&appid=" + api_key + "&lang=cz";
@@ -32,7 +32,7 @@ public class NapicuPocasiService  {
             data.wind_speed = (int) Float.parseFloat(response.get("wind").get("speed").toString());
             data.icon = response.get("weather").get(0).get("icon").asText();
             data.description = response.get("weather").get(0).get("description").asText();
-        } catch (Exception error){
+        } catch (Exception error) {
             new NapicuPrint().printError("NapicuPocasiService", error.toString());
             return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
         }

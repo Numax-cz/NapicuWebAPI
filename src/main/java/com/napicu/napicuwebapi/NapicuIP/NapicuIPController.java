@@ -5,13 +5,9 @@ import com.napicu.napicuwebapi.Response.Response;
 import com.napicu.napicuwebapi.service.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-
-import javax.servlet.http.HttpServletRequest;
 @RestController
 public class NapicuIPController {
     @Autowired
@@ -21,9 +17,9 @@ public class NapicuIPController {
     private RateLimit rateLimit;
 
     @GetMapping("/ip")
-    public Response get(){
+    public Response get() {
 
-        if(rateLimit.getServiceBucket().tryConsume(1)){
+        if (rateLimit.getServiceBucket().tryConsume(1)) {
             return ipService.getIpInfo();
         }
         return new Response(HttpStatus.TOO_MANY_REQUESTS.value(), null);
