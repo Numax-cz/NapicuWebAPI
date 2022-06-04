@@ -47,16 +47,24 @@ api:
 
 ---
 
+
+## Spuštění aplikace na požadovaném portu 
+- Aplikace se defaultně spouští na portu 8080
+- Pro spuštění aplikace na požadovaném portu použijte
+1. Pomocí configuračního souboru
+    ```yml
+    server:
+      port: 7070
+    ```
+2. Pomocí příkazu
+    ```sh
+    java -jar ./app.jar --server.port=7070
+    ```
+
 ## Spuštění aplikace pro development
 ```shell
 ./RunDev.cmd
 ```
-## Spuštění aplikace na požadovaném portu 
-```sh
-java -jar ./app.jar --server.port=7070
-```
-- Aplikace se defaultně spouští na portu 8080
-- Pro spuštění aplikace na požadovaném portu použijte
 
 ## Spuštění aplikace pro produkci - Docker
 ```shell
