@@ -6,9 +6,7 @@ import com.napicu.napicuwebapi.service.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.Objects;
@@ -31,11 +29,12 @@ public class NapicuPocasiController {
         }
     }
 
-    @GetMapping("/pocasi")
-    public Response get(@RequestBody NapicuPocasiModel data) {
+    @GetMapping("/weather")
+    @ResponseBody
+    public Response get(@RequestParam String city) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
 
-            return this.pocasiService.getOpenWeatherData(this.api_key, data.country);
+            return this.pocasiService.getOpenWeatherData(this.api_key, city);
         }
         return new Response(HttpStatus.TOO_MANY_REQUESTS.value(), null);
     }
