@@ -11,18 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 public class NapicuWebApiApplication implements ApplicationRunner {
-
-
     public static void main(String[] args) {
-
-//        Dotenv dotenv = null;
-//        dotenv = Dotenv.configure().load();
-//
-//        if(dotenv == null){
-//            System.out.println("Není");
-//        }
-
-
         SpringApplication.run(NapicuWebApiApplication.class, args);
     }
 

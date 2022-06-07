@@ -12,21 +12,16 @@ import java.util.Objects;
 
 @Service
 public class RateLimit {
-
-    @Value("${api.limits}")
-    private String limits;
     private final Bucket bucket;
     private final String defaultRateLimits = "40";
 
-
-    RateLimit() {
-
-        if (Objects.equals(this.limits, null)) {
-            this.limits = defaultRateLimits;
+    RateLimit(@Value("${api.limits}") String limits) {
+        if (Objects.equals(limits, "")) {
+            limits = defaultRateLimits;
             new NapicuPrint().printInfo("Limits are not set, the limits have been set at " + defaultRateLimits);
         }
 
-        Bandwidth limit = Bandwidth.classic(Integer.parseInt(this.limits), Refill.greedy(1, Duration.ofMinutes(1)));
+        Bandwidth limit = Bandwidth.classic(Integer.parseInt(limits), Refill.greedy(1, Duration.ofMinutes(1)));
         this.bucket = Bucket4j.builder()
                 .addLimit(limit)
                 .build();
