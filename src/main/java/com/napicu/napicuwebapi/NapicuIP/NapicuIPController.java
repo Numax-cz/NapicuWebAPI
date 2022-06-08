@@ -22,7 +22,7 @@ public class NapicuIPController {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             return ipService.getIpInfo();
         }
-        return new Response(HttpStatus.TOO_MANY_REQUESTS.value(), null);
+        return new Response(HttpStatus.TOO_MANY_REQUESTS, null);
 
     }
 

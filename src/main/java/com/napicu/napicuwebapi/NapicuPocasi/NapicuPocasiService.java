@@ -34,8 +34,8 @@ public class NapicuPocasiService {
             data.description = response.get("weather").get(0).get("description").asText();
         } catch (Exception error) {
             new NapicuPrint().printError("NapicuPocasiService", error.toString());
-            return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
+            return new Response(HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
-        return new Response(HttpStatus.OK.value(), data);
+        return new Response(HttpStatus.OK, data);
     }
 }

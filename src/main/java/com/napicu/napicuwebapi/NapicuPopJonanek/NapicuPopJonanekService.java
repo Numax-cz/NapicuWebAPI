@@ -32,10 +32,10 @@ public class NapicuPopJonanekService {
             }
         } catch (Exception error) {
             new NapicuPrint().printError("NapicuPopJonanekService", error.toString());
-            return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
+            return new Response(HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
 
-        return new Response(HttpStatus.OK.value(), database.getCounter());
+        return new Response(HttpStatus.OK, database.getCounter());
     }
 
     public NapicuPopJonanekDatabase creatNewDatabase() {

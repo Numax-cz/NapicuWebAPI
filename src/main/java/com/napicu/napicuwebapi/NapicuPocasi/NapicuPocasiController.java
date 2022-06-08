@@ -36,7 +36,7 @@ public class NapicuPocasiController {
 
             return this.pocasiService.getOpenWeatherData(this.api_key, city);
         }
-        return new Response(HttpStatus.TOO_MANY_REQUESTS.value(), null);
+        return new Response(HttpStatus.TOO_MANY_REQUESTS, null);
     }
 
 }

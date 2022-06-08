@@ -22,10 +22,10 @@ public class NapicuTypeGameService {
             String data = responseEntity.getBody();
             byte[] ptext = data.getBytes(ISO_8859_1);
             String value = new String(ptext, UTF_8);
-            return new Response(HttpStatus.OK.value(), value.split(" \\| "));
+            return new Response(HttpStatus.OK, value.split(" \\| "));
         } catch (Exception error) {
             new NapicuPrint().printError("NapicuIPService", error.toString());
-            return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
+            return new Response(HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 }

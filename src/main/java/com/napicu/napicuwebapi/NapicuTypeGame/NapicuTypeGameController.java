@@ -23,6 +23,6 @@ public class NapicuTypeGameController {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             return typeGameService.getWords(Integer.parseInt(count));
         }
-        return new Response(HttpStatus.TOO_MANY_REQUESTS.value(), null);
+        return new Response(HttpStatus.TOO_MANY_REQUESTS, null);
     }
 }

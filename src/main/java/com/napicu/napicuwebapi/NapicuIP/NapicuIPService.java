@@ -34,10 +34,10 @@ public class NapicuIPService {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<NapicuIPResponseModel> responseEntity = restTemplate.getForEntity(url, NapicuIPResponseModel.class);
             NapicuIPResponseModel data = responseEntity.getBody();
-            return new Response(HttpStatus.OK.value(), data);
+            return new Response(HttpStatus.OK, data);
         } catch (Exception error) {
             new NapicuPrint().printError("NapicuIPService", error.toString());
-            return new Response(HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
+            return new Response(HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 }
