@@ -1,6 +1,8 @@
 package com.napicu.napicuwebapi.NapicuPocasi;
 
 import com.napicu.napicuwebapi.Response.Response;
+import com.napicu.napicuwebapi.exception.NapicuExceptions;
+import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.NapicuPrint;
 import com.napicu.napicuwebapi.service.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;

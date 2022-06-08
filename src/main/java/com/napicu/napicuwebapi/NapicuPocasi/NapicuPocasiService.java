@@ -2,22 +2,29 @@ package com.napicu.napicuwebapi.NapicuPocasi;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.napicu.napicuwebapi.Response.Response;
+import com.napicu.napicuwebapi.exception.NapicuExceptions;
+import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.NapicuPrint;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class NapicuPocasiService {
 
     public Response getOpenWeatherData(String api_key, String country) {
+        final String url = "http://api.openweathermap.org/data/2.5/weather?q=" + country + "&units=metric&appid=" + api_key + "&lang=cz";
         NapicuPocasiResponseModel data = new NapicuPocasiResponseModel();
+
+
         try {
-            final String url = "http://api.openweathermap.org/data/2.5/weather?q=" + country + "&units=metric&appid=" + api_key + "&lang=cz";
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<JsonNode> responseEntity = restTemplate.getForEntity(url, JsonNode.class);
-
+            responseEntity.getStatusCode();
             JsonNode response = responseEntity.getBody();
 
             data.name = response.get("name").asText();
@@ -32,9 +39,11 @@ public class NapicuPocasiService {
             data.wind_speed = (int) Float.parseFloat(response.get("wind").get("speed").toString());
             data.icon = response.get("weather").get(0).get("icon").asText();
             data.description = response.get("weather").get(0).get("description").asText();
-        } catch (Exception error) {
+        } catch (HttpClientErrorException error) {
+            throw new RequestException(HttpStatus.BAD_REQUEST, NapicuExceptions.NAPICU_POCASI_CITY_NOT_FOUND);
+        } catch (RestClientException error){
             new NapicuPrint().printError("NapicuPocasiService", error.toString());
-            return new Response(HttpStatus.INTERNAL_SERVER_ERROR, null);
+            throw new RequestException(HttpStatus.INTERNAL_SERVER_ERROR, NapicuExceptions.NAPICU_SERVER_ERROR);
         }
         return new Response(HttpStatus.OK, data);
     }
