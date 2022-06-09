@@ -33,7 +33,7 @@ public class NapicuIPService {
 
     public NapicuIPResponseModel getIpInfo() {
         try {
-            final String url = "http://ip-apfi.com/json/" + this.getIp() + "?fields=country,city,org,query";
+            final String url = "http://ip-api.com/json/" + this.getIp() + "?fields=country,city,org,query";
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<NapicuIPResponseModel> responseEntity = restTemplate.getForEntity(url, NapicuIPResponseModel.class);
             return responseEntity.getBody();
