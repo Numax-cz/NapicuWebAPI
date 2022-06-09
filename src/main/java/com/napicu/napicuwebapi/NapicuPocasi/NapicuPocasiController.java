@@ -1,13 +1,13 @@
 package com.napicu.napicuwebapi.NapicuPocasi;
 
-import com.napicu.napicuwebapi.Response.Response;
-import com.napicu.napicuwebapi.exception.NapicuExceptions;
+import com.napicu.napicuwebapi.Response.ResponseHandler;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.NapicuPrint;
 import com.napicu.napicuwebapi.service.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -33,12 +33,16 @@ public class NapicuPocasiController {
 
     @GetMapping("/weather")
     @ResponseBody
-    public Response get(@RequestParam String city) {
+    public ResponseEntity<Object> get(@RequestParam String city) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
-
-            return this.pocasiService.getOpenWeatherData(this.api_key, city);
+            try{
+                NapicuPocasiResponseModel data = this.pocasiService.getOpenWeatherData(this.api_key, city);
+                return ResponseHandler.Response(HttpStatus.OK, data);
+            }catch (RequestException error){
+                return ResponseHandler.ResponseError(error.status, error.code.value());
+            }
         }
-        return new Response(HttpStatus.TOO_MANY_REQUESTS, null);
+        return ResponseHandler.ResponseError(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.napicu.napicuwebapi.NapicuPocasi;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.napicu.napicuwebapi.Response.Response;
+import com.napicu.napicuwebapi.Response.ResponseHandler;
 import com.napicu.napicuwebapi.exception.NapicuExceptions;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.NapicuPrint;
@@ -11,15 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class NapicuPocasiService {
 
-    public Response getOpenWeatherData(String api_key, String country) {
+    public NapicuPocasiResponseModel getOpenWeatherData(String api_key, String country) {
         final String url = "http://api.openweathermap.org/data/2.5/weather?q=" + country + "&units=metric&appid=" + api_key + "&lang=cz";
         NapicuPocasiResponseModel data = new NapicuPocasiResponseModel();
-
 
         try {
             RestTemplate restTemplate = new RestTemplate();
@@ -45,6 +43,6 @@ public class NapicuPocasiService {
             new NapicuPrint().printError("NapicuPocasiService", error.toString());
             throw new RequestException(HttpStatus.INTERNAL_SERVER_ERROR, NapicuExceptions.NAPICU_SERVER_ERROR);
         }
-        return new Response(HttpStatus.OK, data);
+        return data;
     }
 }
