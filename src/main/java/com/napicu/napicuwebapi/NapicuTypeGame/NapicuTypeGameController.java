@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class NapicuTypeGameController {
     @Autowired
@@ -24,7 +26,7 @@ public class NapicuTypeGameController {
 
     @GetMapping("/words")
     @ResponseBody
-    public ResponseEntity<ResponseModel<String[]>> setGetCounter(@RequestParam String count) {
+    public ResponseEntity<ResponseModel<String>> setGetCounter(@RequestParam String count) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
                 return typeGameService.getWords(Integer.parseInt(count));
         }
