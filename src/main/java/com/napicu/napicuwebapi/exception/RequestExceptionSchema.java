@@ -1,7 +1,7 @@
 package com.napicu.napicuwebapi.exception;
 
 import org.springframework.http.HttpStatus;
-class RequestExceptionSchema {
+public class RequestExceptionSchema {
     public int status;
     public int code;
 

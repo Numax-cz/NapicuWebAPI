@@ -1,0 +1,83 @@
+openapi: 3.0.1
+info:
+  title: NapicuAPI
+  description: API pro NapicuWebs
+  version: "1.0"
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /popjonanek:
+    post:
+      tags:
+      - napicu-pop-jonanek-controller
+      operationId: setGetCounter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NapicuPopJonanekModel'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /words:
+    get:
+      tags:
+      - napicu-type-game-controller
+      operationId: setGetCounter_1
+      parameters:
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /weather:
+    get:
+      tags:
+      - napicu-pocasi-controller
+      operationId: get
+      parameters:
+      - name: city
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /ip:
+    get:
+      tags:
+      - napicu-ip-controller
+      operationId: get_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    NapicuPopJonanekModel:
+      type: object
+      properties:
+        counter:
+          type: integer
+          format: int32

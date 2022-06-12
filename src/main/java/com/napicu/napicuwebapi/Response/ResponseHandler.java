@@ -1,31 +1,30 @@
 package com.napicu.napicuwebapi.Response;
 
+import com.napicu.napicuwebapi.exception.RequestExceptionSchema;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ResponseHandler {
-    public static ResponseEntity<Object> Response( HttpStatus status, Object data) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("status", status.value());
-        map.put("data", data);
-        return new ResponseEntity<Object>(map,status);
+public class ResponseHandler<T> {
+    public ResponseEntity<ResponseModel<T>> Response(HttpStatus status, T data) {
+        return new ResponseEntity<ResponseModel<T>>(new ResponseModel<T>(data), status);
     }
 
-    public static ResponseEntity<Object> ResponseError(HttpStatus status, int code){
-        return new ResponseEntity<Object>(ResponseHandler.GenerateResponseError(status, code), status);
+    public ResponseEntity<RequestExceptionSchema> ResponseError(HttpStatus status, int code){
+        return new ResponseEntity<RequestExceptionSchema>(this.GenerateResponseError(status, code), status);
     }
 
-    public static ResponseEntity<Object> ResponseError(HttpStatus status){
-        return new ResponseEntity<Object>(ResponseHandler.GenerateResponseError(status, status.value()), status);
+    public ResponseEntity<RequestExceptionSchema> ResponseError(HttpStatus status){
+        return new ResponseEntity<RequestExceptionSchema>(this.GenerateResponseError(status, status.value()), status);
     }
 
-    protected static  Map<String, Object> GenerateResponseError(HttpStatus status, int code){
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("status", status.value());
-        map.put("code", code);
-        return map;
+    protected RequestExceptionSchema GenerateResponseError(HttpStatus status, int code){
+        return new RequestExceptionSchema(status.value(), code);
     }
 }

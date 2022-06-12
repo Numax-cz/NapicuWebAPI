@@ -2,6 +2,7 @@ package com.napicu.napicuwebapi.NapicuPopJonanek;
 
 import com.napicu.napicuwebapi.Database.NapicuPopJonanekDatabase;
 import com.napicu.napicuwebapi.Response.ResponseHandler;
+import com.napicu.napicuwebapi.Response.ResponseModel;
 import com.napicu.napicuwebapi.exception.NapicuExceptions;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.NapicuPrint;
@@ -19,9 +20,8 @@ public class NapicuPopJonanekService {
 
     protected final int maxCount = 2000;
 
-    public Integer updateAndGetCounter(int count) {
+    public ResponseEntity<ResponseModel<NapicuPopJonanekResponseModel>> updateAndGetCounter(int count) {
         NapicuPopJonanekDatabase database;
-
         try {
             boolean exists = repo.existsById(1);
             if (!exists) {
@@ -36,8 +36,9 @@ public class NapicuPopJonanekService {
             new NapicuPrint().printError("NapicuPopJonanekService", error.toString());
             throw new RequestException(HttpStatus.INTERNAL_SERVER_ERROR, NapicuExceptions.NAPICU_SERVER_DATABASE_ERROR);
         }
-
-        return database.getCounter();
+        NapicuPopJonanekResponseModel data = new NapicuPopJonanekResponseModel();
+        data.counter = database.getCounter();
+        return new ResponseHandler<NapicuPopJonanekResponseModel>().Response(HttpStatus.OK, data);
     }
 
     public NapicuPopJonanekDatabase creatNewDatabase() {

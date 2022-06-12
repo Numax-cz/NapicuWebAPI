@@ -12,6 +12,7 @@ public enum NapicuExceptions {
 
 
 
+
     private int value;
     private NapicuExceptions(int value) {
         this.value = value;

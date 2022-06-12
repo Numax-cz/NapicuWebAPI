@@ -1,6 +1,8 @@
 package com.napicu.napicuwebapi.NapicuTypeGame;
 
+import com.napicu.napicuwebapi.NapicuPopJonanek.NapicuPopJonanekResponseModel;
 import com.napicu.napicuwebapi.Response.ResponseHandler;
+import com.napicu.napicuwebapi.Response.ResponseModel;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.RateLimit;
 import org.apache.coyote.Response;
@@ -22,15 +24,10 @@ public class NapicuTypeGameController {
 
     @GetMapping("/words")
     @ResponseBody
-    public ResponseEntity<Object> setGetCounter(@RequestParam String count) {
+    public ResponseEntity<ResponseModel<String[]>> setGetCounter(@RequestParam String count) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
-            try{
-                String[] data = typeGameService.getWords(Integer.parseInt(count));
-                return ResponseHandler.Response(HttpStatus.OK, data);
-            }catch (RequestException error){
-                return ResponseHandler.ResponseError(error.status, error.code.value());
-            }
+                return typeGameService.getWords(Integer.parseInt(count));
         }
-        return ResponseHandler.Response(HttpStatus.TOO_MANY_REQUESTS, null);
+        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, null);
     }
 }

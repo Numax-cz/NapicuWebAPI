@@ -1,9 +1,10 @@
 package com.napicu.napicuwebapi.NapicuPopJonanek;
 
+import com.napicu.napicuwebapi.NapicuIP.NapicuIPResponseModel;
 import com.napicu.napicuwebapi.Response.ResponseHandler;
+import com.napicu.napicuwebapi.Response.ResponseModel;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.RateLimit;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,16 +26,10 @@ public class NapicuPopJonanekController {
     }
 
     @PostMapping("/popjonanek")
-    public ResponseEntity<Object> setGetCounter(@RequestBody NapicuPopJonanekModel ApiData) {
+    public ResponseEntity<ResponseModel<NapicuPopJonanekResponseModel>>setGetCounter(@RequestBody NapicuPopJonanekPostModel ApiData) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
-            try{
-                Integer data = popJonanekService.updateAndGetCounter(ApiData.counter);
-                return ResponseHandler.Response(HttpStatus.OK, data);
-            }catch (RequestException error){
-                return ResponseHandler.ResponseError(error.status, error.code.value());
-            }
+            return popJonanekService.updateAndGetCounter(ApiData.counter);
         }
-        return ResponseHandler.Response(HttpStatus.TOO_MANY_REQUESTS, null);
+        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, null);
     }
-
 }
