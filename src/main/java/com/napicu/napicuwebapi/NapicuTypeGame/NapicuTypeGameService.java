@@ -1,7 +1,6 @@
 package com.napicu.napicuwebapi.NapicuTypeGame;
 
-import com.napicu.napicuwebapi.Response.ResponseHandler;
-import com.napicu.napicuwebapi.Response.ResponseModel;
+
 import com.napicu.napicuwebapi.exception.NapicuExceptions;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.NapicuPrint;
@@ -17,7 +16,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class NapicuTypeGameService {
 
 
-    public ResponseEntity<ResponseModel<String>> getWords(int count) {
+    public ResponseEntity<String> getWords(int count) {
         try {
             final String url = "http://slova.cetba.eu/generate.php?number=" + count;
             RestTemplate restTemplate = new RestTemplate();
@@ -25,7 +24,7 @@ public class NapicuTypeGameService {
             String data = responseEntity.getBody();
             byte[] ptext = data.getBytes(ISO_8859_1);
             String value = new String(ptext, UTF_8);
-            return new ResponseHandler<String>().Response(HttpStatus.OK, value);
+            return new ResponseEntity<String>(value, HttpStatus.OK);
         } catch (Exception error) {
             new NapicuPrint().printError("NapicuIPService", error.toString());
             throw new RequestException(HttpStatus.INTERNAL_SERVER_ERROR, NapicuExceptions.NAPICU_SERVER_ERROR);

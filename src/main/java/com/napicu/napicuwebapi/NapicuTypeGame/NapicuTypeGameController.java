@@ -1,10 +1,10 @@
 package com.napicu.napicuwebapi.NapicuTypeGame;
 
-import com.napicu.napicuwebapi.NapicuPopJonanek.NapicuPopJonanekResponseModel;
-import com.napicu.napicuwebapi.Response.ResponseHandler;
-import com.napicu.napicuwebapi.Response.ResponseModel;
+
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.RateLimit;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,12 @@ public class NapicuTypeGameController {
     private RateLimit rateLimit;
 
 
+    @ApiResponses(
+            @ApiResponse(responseCode = "500")
+    )
     @GetMapping("/words")
     @ResponseBody
-    public ResponseEntity<ResponseModel<String>> setGetCounter(@RequestParam String count) {
+    public ResponseEntity<String> setGetCounter(@RequestParam String count) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
                 return typeGameService.getWords(Integer.parseInt(count));
         }

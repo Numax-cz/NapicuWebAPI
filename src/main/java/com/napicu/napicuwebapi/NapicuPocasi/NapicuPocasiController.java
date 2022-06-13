@@ -1,15 +1,11 @@
 package com.napicu.napicuwebapi.NapicuPocasi;
 
-import com.napicu.napicuwebapi.Response.ResponseHandler;
-import com.napicu.napicuwebapi.Response.ResponseModel;
-import com.napicu.napicuwebapi.exception.NapicuExceptions;
+
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.exception.RequestExceptionSchema;
 import com.napicu.napicuwebapi.service.NapicuPrint;
 import com.napicu.napicuwebapi.service.RateLimit;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +38,7 @@ public class NapicuPocasiController {
     @ApiResponses()
     @GetMapping("/weather")
     @ResponseBody
-    public ResponseEntity<ResponseModel<NapicuPocasiResponseModel>> get(@RequestParam String city) {
+    public ResponseEntity<NapicuPocasiResponseModel> get(@RequestParam String city) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             return this.pocasiService.getOpenWeatherData(this.api_key, city);
         }

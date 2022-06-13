@@ -1,9 +1,5 @@
 package com.napicu.napicuwebapi.NapicuIP;
 
-
-import com.napicu.napicuwebapi.NapicuPocasi.NapicuPocasiResponseModel;
-import com.napicu.napicuwebapi.Response.ResponseHandler;
-import com.napicu.napicuwebapi.Response.ResponseModel;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +17,7 @@ public class NapicuIPController {
     private RateLimit rateLimit;
 
     @GetMapping("/ip")
-    public ResponseEntity<ResponseModel<NapicuIPResponseModel>> get() {
+    public ResponseEntity<NapicuIPResponseModel> get() {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             return ipService.getIpInfo();
         }

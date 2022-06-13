@@ -1,8 +1,5 @@
 package com.napicu.napicuwebapi.NapicuPopJonanek;
 
-import com.napicu.napicuwebapi.NapicuIP.NapicuIPResponseModel;
-import com.napicu.napicuwebapi.Response.ResponseHandler;
-import com.napicu.napicuwebapi.Response.ResponseModel;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ public class NapicuPopJonanekController {
     }
 
     @PostMapping("/popjonanek")
-    public ResponseEntity<ResponseModel<NapicuPopJonanekResponseModel>>setGetCounter(@RequestBody NapicuPopJonanekPostModel ApiData) {
+    public ResponseEntity<NapicuPopJonanekResponseModel>setGetCounter(@RequestBody NapicuPopJonanekPostModel ApiData) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             return popJonanekService.updateAndGetCounter(ApiData.counter);
         }

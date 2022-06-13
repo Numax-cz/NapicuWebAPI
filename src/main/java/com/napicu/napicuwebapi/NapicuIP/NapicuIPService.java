@@ -1,7 +1,5 @@
 package com.napicu.napicuwebapi.NapicuIP;
 
-import com.napicu.napicuwebapi.Response.ResponseHandler;
-import com.napicu.napicuwebapi.Response.ResponseModel;
 import com.napicu.napicuwebapi.exception.NapicuExceptions;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.NapicuPrint;
@@ -32,12 +30,12 @@ public class NapicuIPService {
         return remoteAddr;
     }
 
-    public ResponseEntity<ResponseModel<NapicuIPResponseModel>> getIpInfo() {
+    public ResponseEntity<NapicuIPResponseModel> getIpInfo() {
         try {
             final String url = "http://ip-api.com/json/" + this.getIp() + "?fields=country,city,org,query";
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<NapicuIPResponseModel> responseEntity = restTemplate.getForEntity(url, NapicuIPResponseModel.class);
-            return new ResponseHandler<NapicuIPResponseModel>().Response(HttpStatus.OK, responseEntity.getBody());
+            return new ResponseEntity<NapicuIPResponseModel>(responseEntity.getBody(), HttpStatus.OK);
         }
         catch (HttpClientErrorException error) {
             throw new RequestException(HttpStatus.BAD_REQUEST, NapicuExceptions.NAPICU_SERVER_ERROR);
