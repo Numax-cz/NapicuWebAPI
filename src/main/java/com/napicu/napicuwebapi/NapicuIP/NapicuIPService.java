@@ -38,7 +38,7 @@ public class NapicuIPService {
             return responseEntity.getBody();
         }
         catch (HttpClientErrorException error) {
-            throw new RequestException(HttpStatus.BAD_REQUEST, NapicuExceptions.NAPICU_SERVER_ERROR);
+            throw new RequestException(HttpStatus.BAD_REQUEST, NapicuExceptions.NAPICU_BAD_IP);
         }
     }
 }
