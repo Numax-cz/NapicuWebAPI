@@ -28,7 +28,7 @@ public class NapicuTypeGameController {
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Vše je v pořádku",
-                    content = @Content(mediaType = "application/json",schema = @Schema(implementation = RequestExceptionSchema.class))),
+                    content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "429", description = "Příliš mnoho požadavků",
                     content = @Content(mediaType = "application/json",schema = @Schema(implementation = RequestExceptionSchema.class))),
             @ApiResponse(responseCode = "500", description = "Nebylo možné získat slova",
