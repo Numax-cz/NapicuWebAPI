@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class NapicuPocasiService {
 
-    public ResponseEntity<NapicuPocasiResponseModel> getOpenWeatherData(String api_key, String country) {
+    public NapicuPocasiResponseModel getOpenWeatherData(String api_key, String country) {
         final String url = "http://api.openweathermap.org/data/2.5/weather?q=" + country + "&units=metric&appid=" + api_key + "&lang=cz";
         NapicuPocasiResponseModel data = new NapicuPocasiResponseModel();
 
@@ -42,6 +42,6 @@ public class NapicuPocasiService {
             new NapicuPrint().printError("NapicuPocasiService", error.toString());
             throw new RequestException(HttpStatus.INTERNAL_SERVER_ERROR, NapicuExceptions.NAPICU_SERVER_ERROR);
         }
-        return new ResponseEntity<NapicuPocasiResponseModel>(data, HttpStatus.OK);
+        return data;
     }
 }

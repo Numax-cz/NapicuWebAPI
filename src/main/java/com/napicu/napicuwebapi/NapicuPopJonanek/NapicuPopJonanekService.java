@@ -3,7 +3,12 @@ package com.napicu.napicuwebapi.NapicuPopJonanek;
 import com.napicu.napicuwebapi.Database.NapicuPopJonanekDatabase;
 import com.napicu.napicuwebapi.exception.NapicuExceptions;
 import com.napicu.napicuwebapi.exception.RequestException;
+import com.napicu.napicuwebapi.exception.RequestExceptionSchema;
 import com.napicu.napicuwebapi.service.NapicuPrint;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +23,8 @@ public class NapicuPopJonanekService {
 
     protected final int maxCount = 2000;
 
-    public ResponseEntity<NapicuPopJonanekResponseModel> updateAndGetCounter(int count) {
+
+    public NapicuPopJonanekResponseModel updateAndGetCounter(int count) {
         NapicuPopJonanekDatabase database;
         try {
             boolean exists = repo.existsById(1);
@@ -36,7 +42,7 @@ public class NapicuPopJonanekService {
         }
         NapicuPopJonanekResponseModel data = new NapicuPopJonanekResponseModel();
         data.counter = database.getCounter();
-        return new ResponseEntity<NapicuPopJonanekResponseModel>(data, HttpStatus.OK);
+        return data;
     }
 
     public NapicuPopJonanekDatabase creatNewDatabase() {

@@ -30,12 +30,12 @@ public class NapicuIPService {
         return remoteAddr;
     }
 
-    public ResponseEntity<NapicuIPResponseModel> getIpInfo() {
+    public NapicuIPResponseModel getIpInfo() {
         try {
             final String url = "http://ip-api.com/json/" + this.getIp() + "?fields=country,city,org,query";
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<NapicuIPResponseModel> responseEntity = restTemplate.getForEntity(url, NapicuIPResponseModel.class);
-            return new ResponseEntity<NapicuIPResponseModel>(responseEntity.getBody(), HttpStatus.OK);
+            return responseEntity.getBody();
         }
         catch (HttpClientErrorException error) {
             throw new RequestException(HttpStatus.BAD_REQUEST, NapicuExceptions.NAPICU_SERVER_ERROR);
