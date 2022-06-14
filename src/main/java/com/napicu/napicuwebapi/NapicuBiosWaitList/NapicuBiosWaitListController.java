@@ -22,7 +22,7 @@ public class NapicuBiosWaitListController {
 
 
     @PostMapping("/waitlist")
-    public NapicuBiosWaitListResponseModel setGetCounter(@RequestBody NapicuBiosWaitListModel data) {
+    public NapicuBiosWaitListResponseModel post(@RequestBody NapicuBiosWaitListModel data) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             this.biosService.insertEmailToDatabase(data.email);
             return new NapicuBiosWaitListResponseModel(true);
