@@ -34,7 +34,7 @@ public class NapicuTypeGameController {
     )
     @GetMapping("/words")
     @ResponseBody
-    public String setGetCounter(@RequestParam String count) {
+    public String getWords(@RequestParam String count) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
                 return typeGameService.getWords(Integer.parseInt(count));
         }
