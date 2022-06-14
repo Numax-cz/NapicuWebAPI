@@ -25,7 +25,9 @@ public class NapicuBiosWaitListController {
     public NapicuBiosWaitListResponseModel post(@RequestBody NapicuBiosWaitListModel data) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             this.biosService.insertEmailToDatabase(data.email);
-            return new NapicuBiosWaitListResponseModel(true);
+            NapicuBiosWaitListResponseModel d = new NapicuBiosWaitListResponseModel();
+            d.success = true;
+            return d;
         }
         throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, null);
     }
