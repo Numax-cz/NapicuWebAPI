@@ -7,8 +7,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.napicu</groupId>
-    <artifactId>NapicuWebApi</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>napicuwebapi</artifactId>
+    <version>1.0.0</version>
     <name>NapicuWebApi</name>
     <description>NapicuWebApi</description>
     <properties>
