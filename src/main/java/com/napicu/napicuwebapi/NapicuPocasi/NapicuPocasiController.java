@@ -21,6 +21,8 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.annotation.PostConstruct;
 import java.util.Objects;
 
+import static com.napicu.napicuwebapi.exception.NapicuExceptions.NAPICU_TO_MANY_REQUESTS;
+
 @RestController
 public class NapicuPocasiController {
 
@@ -55,6 +57,6 @@ public class NapicuPocasiController {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             return this.pocasiService.getOpenWeatherData(this.api_key, city);
         }
-        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, null);
+        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, NAPICU_TO_MANY_REQUESTS);
     }
 }

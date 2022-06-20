@@ -11,4 +11,6 @@ public class RequestException extends RuntimeException {
         this.status = status;
         this.code = code;
     }
+
+
 }

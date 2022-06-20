@@ -28,6 +28,9 @@ public class RateLimit {
     }
 
     public Bucket getServiceBucket() {
+        if(!this.bucket.tryConsume(1)) {
+            new NapicuPrint().printInfo("LIMIT - BLOCKED");
+        }
         return this.bucket;
     }
 }

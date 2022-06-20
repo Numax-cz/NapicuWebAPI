@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.napicu.napicuwebapi.exception.NapicuExceptions.NAPICU_TO_MANY_REQUESTS;
+
 @RestController
 public class NapicuBiosWaitListController {
 
@@ -42,6 +44,6 @@ public class NapicuBiosWaitListController {
             d.success = true;
             return d;
         }
-        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, null);
+        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, NAPICU_TO_MANY_REQUESTS);
     }
 }

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+import static com.napicu.napicuwebapi.exception.NapicuExceptions.NAPICU_TO_MANY_REQUESTS;
+
 @RestController
 public class NapicuTypeGameController {
     @Autowired
@@ -34,10 +36,10 @@ public class NapicuTypeGameController {
     )
     @GetMapping("/words")
     @ResponseBody
-    public String[] getWords(@RequestParam int count) {
+    public String[] getWords(@RequestParam int count) throws RequestException {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
                 return typeGameService.getWords(count).split(" \\| ");
         }
-        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, null);
+        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, NAPICU_TO_MANY_REQUESTS);
     }
 }

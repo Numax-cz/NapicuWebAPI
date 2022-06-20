@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.napicu.napicuwebapi.exception.NapicuExceptions.NAPICU_TO_MANY_REQUESTS;
+
 @RestController
 public class NapicuPopJonanekController {
     @Autowired
@@ -40,6 +42,6 @@ public class NapicuPopJonanekController {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
             return popJonanekService.updateAndGetCounter(ApiData.counter);
         }
-        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, null);
+        throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, NAPICU_TO_MANY_REQUESTS);
     }
 }
