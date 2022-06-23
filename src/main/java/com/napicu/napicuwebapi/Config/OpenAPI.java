@@ -26,7 +26,7 @@ public class OpenAPI {
                         .license(new License().name("MIT").url("https://opensource.org/licenses/mit-license.php"))
                 ).addServersItem(new Server()
                         .url("https://api2.napicu.eu")
-                        .description("URL Pro NapicuAPI")
+                        .description("NapicuWeb Server")
                 );
     }
 }
