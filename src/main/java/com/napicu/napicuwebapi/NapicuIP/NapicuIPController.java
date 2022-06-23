@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static com.napicu.napicuwebapi.exception.NapicuExceptions.NAPICU_TO_MANY_REQUESTS;
 
 @RestController
@@ -32,9 +34,9 @@ public class NapicuIPController {
         }
     )
     @GetMapping("/ip")
-    public NapicuIPResponseModel get() {
+    public NapicuIPResponseModel get(HttpServletRequest request) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
-            return ipService.getIpInfo();
+            return ipService.getIpInfo(request);
         }
         throw new RequestException(HttpStatus.TOO_MANY_REQUESTS, NAPICU_TO_MANY_REQUESTS);
     }
