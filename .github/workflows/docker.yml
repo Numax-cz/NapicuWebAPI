@@ -15,12 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag NapicuWebAPI
+        run: docker build . --file Dockerfile --tag napicuwebapi
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.GHCR_PASSWORD }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push image to GitHub Container Registry
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/NapicuWebAPI:${{ github.run_id }}
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/napicuwebapi:${{ github.run_id }}
           docker push $IMAGE_ID
