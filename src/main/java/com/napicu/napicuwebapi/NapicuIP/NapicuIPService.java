@@ -2,8 +2,6 @@ package com.napicu.napicuwebapi.NapicuIP;
 
 import com.napicu.napicuwebapi.exception.NapicuExceptions;
 import com.napicu.napicuwebapi.exception.RequestException;
-import com.napicu.napicuwebapi.service.NapicuPrint;
-import org.springdoc.webmvc.core.RequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,5 @@
 package com.napicu.napicuwebapi.NapicuBiosWaitList;
 
-import com.napicu.napicuwebapi.NapicuIP.NapicuIPService;
-import com.napicu.napicuwebapi.NapicuPopJonanek.NapicuPopJonanekPostModel;
-import com.napicu.napicuwebapi.NapicuPopJonanek.NapicuPopJonanekResponseModel;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.exception.RequestExceptionSchema;
 import com.napicu.napicuwebapi.service.RateLimit;

@@ -1,7 +1,5 @@
 package com.napicu.napicuwebapi.NapicuPocasi;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-
 import javax.validation.constraints.NotNull;
 
 public class NapicuPocasiResponseModel {

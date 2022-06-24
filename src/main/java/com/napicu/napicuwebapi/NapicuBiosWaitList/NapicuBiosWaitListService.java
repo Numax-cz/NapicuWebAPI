@@ -1,8 +1,6 @@
 package com.napicu.napicuwebapi.NapicuBiosWaitList;
 
 import com.napicu.napicuwebapi.Database.NapicuBiosWaitListDatabase;
-import com.napicu.napicuwebapi.Database.NapicuPopJonanekDatabase;
-import com.napicu.napicuwebapi.NapicuPopJonanek.NapicuPopJonanekResponseModel;
 import com.napicu.napicuwebapi.exception.NapicuExceptions;
 import com.napicu.napicuwebapi.exception.RequestException;
 import com.napicu.napicuwebapi.service.NapicuPrint;
