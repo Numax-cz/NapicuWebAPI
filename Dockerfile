@@ -1,6 +1,6 @@
 FROM maven:3.6.3-openjdk-15
 
-COPY ./target/*.jar /app/app.jar
+COPY /target/*.jar /app/app.jar
 
 RUN cd /app
 
