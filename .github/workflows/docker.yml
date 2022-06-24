@@ -21,8 +21,7 @@ jobs:
           distribution: "adopt"
           cache: maven
 
-      - name: Build the Docker image
-        run: mvn clean install
+
 
       - name: Docker meta
         id: docker_meta

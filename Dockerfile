@@ -4,6 +4,8 @@ EXPOSE 80
 
 ADD target/*.jar /app/app.jar
 
+RUN mvn clean install
+
 RUN cd /app
 
 WORKDIR /app
