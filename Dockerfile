@@ -2,7 +2,7 @@ FROM maven:3.6.3-openjdk-15
 
 EXPOSE 80
 
-RUN ./mvnw clean package
+RUN mvn clean package
 
 ADD target/*.jar /app/app.jar
 
