@@ -2,9 +2,11 @@ FROM maven:3.6.3-openjdk-15
 
 EXPOSE 80
 
+RUN mvn spring-boot:build-image -f pom.xml
+
 ADD target/*.jar /app/app.jar
 
-RUN mvn clean install
+
 
 RUN cd /app
 
