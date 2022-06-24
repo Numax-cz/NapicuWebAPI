@@ -16,11 +16,8 @@
 
 ## Nastavení configu
 
-Nastavte soubor pro development <br />
-`src/main/resources/application-dev.yml` <br/>
+- Nastavte soubor pro development `src/main/resources/application-dev.yml`
 
-Nastavte soubor pro development <br />
-`src/main/resources/application-dev.yml` <br/>
 
 - Pro změnu profilů použijte tento příkaz
     ```sh
@@ -30,16 +27,17 @@ Nastavte soubor pro development <br />
     ```sh
      java -jar ./app.jar --spring.profiles.active=NAZEV-PROFILU
     ```
-## Nastavení env v Dockeru
-```
-DB_HOST
-DB_TABLE
-DB_PASS
-API_LIMITS
-API_OPEN_WEATHER_KEY
-```
+- Nastavení env v Dockeru
+    ```
+    DB_HOST
+    DB_TABLE
+    DB_PASS
+    API_LIMITS
+    API_OPEN_WEATHER_KEY
+    ```
 * Ve výchozím nastavení je `API_LIMITS` nasatven na 40 requestů za minutu
 * Aplikace si potřebné tabulky vytvoří sama
+
 ---
 
 ## Buildnutí aplikace
@@ -58,7 +56,6 @@ API_OPEN_WEATHER_KEY
 
 ---
 
-
 ## Spuštění aplikace na požadovaném portu 
 - Aplikace se defaultně spouští na portu 8080
 - Pro spuštění aplikace na požadovaném portu použijte
@@ -72,12 +69,14 @@ API_OPEN_WEATHER_KEY
     java -jar ./app.jar --server.port=7070
     ```
 
+
 ## Spuštění aplikace pro development
 ```shell
 ./RunDev.cmd
 ```
 
-## Spuštění aplikace pro produkci - Docker
+
+## Spuštění aplikace pro produkci
 ```shell
- java -jar ./app.jar --server.port=80 --spring.profiles.active=prod
+ java -jar ./app.jar --spring.profiles.active=prod-example
 ```
