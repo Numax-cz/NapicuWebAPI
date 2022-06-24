@@ -1,7 +1,5 @@
 FROM maven:3.6.3-openjdk-15
 
-CMD .\mvnw spring-boot:build-image -f pom.xml
-
 COPY ./target/*.jar /app/app.jar
 
 RUN cd /app

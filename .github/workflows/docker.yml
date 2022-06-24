@@ -14,6 +14,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@1
+        with:
+          java-version: "16"
+          distribution: "adopt"
+          cache: maven
+
+      -name: Build with Maven
+       run: mvn clean install
+
+
+
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag napicuwebapi
 
