@@ -21,9 +21,8 @@ jobs:
           distribution: "adopt"
           cache: maven
 
-      -name: Build with Maven
-       run: mvn clean install
-
+      - name: Build the Docker image
+        run: mvn clean install
 
 
       - name: Build the Docker image
