@@ -70,10 +70,3 @@ api:
 ```shell
  java -jar ./app.jar --server.port=80 --spring.profiles.active=prod
 ```
-
----
-
-# API Interface 
-
-## GET
- ``/ip`` 
