@@ -29,9 +29,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ghcr.io/Numax-cz/napicuwebapi
-          tag-sha: false
-          tag-edge: true
-          tag-latest: true
+          tag-custom: latest
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
