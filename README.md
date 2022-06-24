@@ -41,15 +41,7 @@
 ---
 
 ## Buildnutí aplikace
-1. ### Nastavení javy
-- Nastavíme systémovou proměnnou `JAVA_HOME` odkazující na cestu k Javě
-- Nebo nastavíme v `mvnw.cmd cestu` k Javě viz:
 
-```shell 
-   if "%JAVA_HOME%" == "" set "JAVA_HOME=D:\Apps\JDK 15.0.2\"
-```
-
-2. ### Spuštění scriptu pro buildnutí
 ```shell
 ./Build.cmd
 ```
