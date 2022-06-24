@@ -1,1 +1,1 @@
-.\mvnw spring-boot:build-image -f pom.xml
+./mvnw clean package
