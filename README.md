@@ -1,8 +1,15 @@
 # NapicuWebAPI - Preview
 
 ## Instalace
+   
+### Git 
    ```sh
    git clone https://github.com/Numax-cz/NapicuWebAPI.git
+   ``` 
+
+### Docker
+   ```sh
+  docker pull ghcr.io/numax-cz/napicuwebapi:latest
    ``` 
 
 ---
@@ -23,12 +30,16 @@ Nastavte soubor pro development <br />
     ```sh
      java -jar ./app.jar --spring.profiles.active=NAZEV-PROFILU
     ```
-## Nastavení request limitů
-- Ve výchozím nastavení je povoleno 40 requestů za minutu na 1 IP adresu pro všechny API
-```yml
-api:
-  limits: 40
+## Nastavení env v Dockeru
 ```
+DB_HOST
+DB_TABLE
+DB_PASS
+API_LIMITS
+API_OPEN_WEATHER_KEY
+```
+* Ve výchozím nastavení je `API_LIMITS` nasatven na 40 requestů za minutu
+* Aplikace si potřebné tabulky vytvoří sama
 ---
 
 ## Buildnutí aplikace
