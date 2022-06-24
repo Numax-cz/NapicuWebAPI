@@ -24,9 +24,6 @@ jobs:
       - name: Build the Docker image
         run: mvn clean install
 
-
-
-
       - name: Docker meta
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
@@ -49,38 +46,16 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PASSWORD }}
 
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v3.0.0
-        with:
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          file: ./Dockerfile
-
-      - name: Monitor image for vulnerabilities with Snyk
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK }}
-        with:
-          command: monitor
-          image: "ghcr.io/Numax-cz/napicuwebapi:main"
-          args: --file=Dockerfile --project-name=napicuwebapi
-
-      - name: Push image
+      - name: Build image
         uses: docker/build-push-action@v2
         with:
-          push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           file: ./Dockerfile
 
 
-
-
-
-
-
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.GHCR_PASSWORD }}" | docker login https://ghcr.io -u numax-cz --password-stdin
-
-      - name: Push image to GitHub Container Registry
-        run: |
-          IMAGE_ID=ghcr.io/numax-cz/napicuwebapi:${{ github.run_id }}
-          docker push $IMAGE_ID
+        - name: Push image
+          uses: docker/build-push-action@v2
+          with:
+            push: true
+            tags: ${{ steps.docker_meta.outputs.tags }}
+            file: ./Dockerfile
