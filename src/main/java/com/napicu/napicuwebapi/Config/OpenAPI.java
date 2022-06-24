@@ -23,7 +23,7 @@ public class OpenAPI {
                                 .email("numax@napicu.eu"))
                         .license(new License().name("MIT").url("https://opensource.org/licenses/mit-license.php"))
                 ).addServersItem(new Server()
-                        .url("https://api2.napicu.eu")
+                        .url("https://api.napicu.eu")
                         .description("NapicuWeb Server")
                 );
     }
