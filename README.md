@@ -73,3 +73,8 @@
 ```shell
  java -jar ./app.jar --spring.profiles.active=prod-example
 ```
+
+## Spuštění aplikace v dockeru
+```shell
+docker run --init -d --name NapicuAPI --env-file secrets.env -p 8080:80  ghcr.io/numax-cz/napicuwebapi:latest
+```
