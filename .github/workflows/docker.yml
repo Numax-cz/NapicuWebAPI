@@ -25,8 +25,57 @@ jobs:
         run: mvn clean install
 
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag napicuwebapi
+
+
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: ghcr.io/Numax-cz/napicuwebapi
+          tag-sha: true
+          tag-edge: false
+          tag-latest: true
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_PASSWORD }}
+
+      - name: Build image
+        uses: docker/build-push-action@v2
+        with:
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          file: ./Dockerfile
+
+      - name: Monitor image for vulnerabilities with Snyk
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK }}
+        with:
+          command: monitor
+          image: "ghcr.io/Numax-cz/napicuwebapi:main"
+          args: --file=Dockerfile --project-name=napicuwebapi
+
+      - name: Push image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          file: ./Dockerfile
+
+
+
+
+
+
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.GHCR_PASSWORD }}" | docker login https://ghcr.io -u numax-cz --password-stdin
