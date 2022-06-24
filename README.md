@@ -31,6 +31,7 @@
     ```
     DB_HOST
     DB_TABLE
+    DB_USER
     DB_PASS
     API_LIMITS
     API_OPEN_WEATHER_KEY
