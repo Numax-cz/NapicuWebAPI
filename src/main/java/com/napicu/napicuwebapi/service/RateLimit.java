@@ -21,7 +21,7 @@ public class RateLimit {
             new NapicuPrint().printInfo("Limits are not set, the limits have been set at " + defaultRateLimits);
         }
 
-        Bandwidth limit = Bandwidth.classic(Integer.parseInt(limits), Refill.greedy(1, Duration.ofMinutes(1)));
+        Bandwidth limit = Bandwidth.classic(Integer.parseInt(limits), Refill.greedy(Integer.parseInt(limits), Duration.ofMinutes(1)));
         this.bucket = Bucket4j.builder()
                 .addLimit(limit)
                 .build();
