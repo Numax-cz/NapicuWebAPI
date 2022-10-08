@@ -1,4 +1,4 @@
-# NapicuWebAPI - Preview
+# NapicuWebAPI
 
 ## Instalace
    
