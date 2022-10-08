@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static com.napicu.napicuwebapi.exception.NapicuExceptions.NAPICU_TO_MANY_REQUESTS;
 
-@RestController
+//@RestController
 public class NapicuBiosWaitListController {
 
     @Autowired
@@ -25,14 +25,14 @@ public class NapicuBiosWaitListController {
     private RateLimit rateLimit;
 
 
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Vše je v pořádku"),
-            @ApiResponse(responseCode = "429", description = "Příliš mnoho požadavků",
-                    content = @Content(mediaType = "application/json",schema = @Schema(implementation = RequestExceptionSchema.class))),
-            @ApiResponse(responseCode = "500", description = "Chyba databáze",
-                    content = @Content(mediaType = "application/json",schema = @Schema(implementation = RequestExceptionSchema.class))),
-    }
-    )
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Vše je v pořádku"),
+//            @ApiResponse(responseCode = "429", description = "Příliš mnoho požadavků",
+//                    content = @Content(mediaType = "application/json",schema = @Schema(implementation = RequestExceptionSchema.class))),
+//            @ApiResponse(responseCode = "500", description = "Chyba databáze",
+//                    content = @Content(mediaType = "application/json",schema = @Schema(implementation = RequestExceptionSchema.class))),
+//    }
+//   )
     @PostMapping("/waitlist")
     public NapicuBiosWaitListResponseModel post(@RequestBody NapicuBiosWaitListModel data) {
         if (rateLimit.getServiceBucket().tryConsume(1)) {
